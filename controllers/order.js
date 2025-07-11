@@ -7,6 +7,11 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const PAYSTACK_KEY =
+  process.env.NODE_ENV === "development"
+    ? process.env.PAYSTACK_TEST_SECRET_KEY
+    : process.env.PAYSTACK_LIVE_SECRET_KEY;
+
 export const CreateOrder = async (req, res, next) => {
   try {
     const userId = req.session.user._id;
@@ -93,7 +98,7 @@ export const InitializePayment = async (req, res, next) => {
       },
       {
         headers: {
-          Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
+          Authorization: `Bearer ${PAYSTACK_KEY}`,
           "Content-Type": "application/json",
         },
       }
@@ -128,7 +133,7 @@ export const VerifyPayment = async (req, res, next) => {
       `https://api.paystack.co/transaction/verify/${reference}`,
       {
         headers: {
-          Authorization: `Bearer ${process.env.PAYSTACK_TEST_SECRET_KEY}`,
+          Authorization: `Bearer ${PAYSTACK_KEY}`,
         },
       }
     );
@@ -388,7 +393,7 @@ export const SearchOrder = async (req, res, next) => {
             },
           },
           {
-            orderStatus: { $ne: "not_ordered" }
+            orderStatus: { $ne: "not_ordered" },
           },
         ],
       },

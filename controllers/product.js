@@ -90,6 +90,7 @@ export const CreateProduct = async (req, res, next) => {
       const uploadResult = await cloudinary.uploader.upload(image, {
         folder: "SAYFOOD",
         resource_type: "image",
+        format: "webp",
       });
       imageUrl = uploadResult.secure_url;
     } catch (uploadError) {
