@@ -18,7 +18,7 @@ dotenv.config();
 
 const corsOptions = {
   credentials: true,
-  origin: process.env.NODE_ENV === "production" ? "" : "http://localhost:5174",
+  origin: process.env.NODE_ENV === "production" ? "https://www.sayfoods.co/" : "http://localhost:5173",
 };
 app.use(cors(corsOptions));
 
@@ -51,12 +51,12 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/food-share", foodShareRoutes);
 
 // Wrong endpoint error handling
-app.use((req, res, next) => {
+app.use((_req, _res, next) => {
   next(createHttpError(404, "Endpoint not found"));
 });
 
 // Global error handler
-app.use((error, req, res, next) => {
+app.use((error, _req, res, _next) => {
   const statusCode = isHttpError(error) ? error.status : 500;
   const message = isHttpError(error)
     ? error.message
@@ -68,5 +68,5 @@ app.use((error, req, res, next) => {
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URL)
-  .then(() => app.listen(6060, () => console.log("APP CONNECTED")))
+  .then(() => app.listen(8000, () => console.log("APP CONNECTED")))
   .catch((error) => console.log(error));
