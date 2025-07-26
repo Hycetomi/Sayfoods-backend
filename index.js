@@ -23,6 +23,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Setup session store
+app.set('trust proxy', 1);
 app.use(
   session({
     name: "SAYFOODS",
