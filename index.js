@@ -68,5 +68,5 @@ app.use((error, _req, res, _next) => {
 // MongoDB connection
 mongoose
   .connect(process.env.MONGO_URL)
-  .then(() => app.listen(8000, () => console.log("APP CONNECTED")))
+  .then(() => app.listen(process.env.PORT || 8000, () => console.log(`APP CONNECTED on port ${process.env.PORT || 8000}`)))
   .catch((error) => console.log(error));
