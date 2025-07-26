@@ -18,7 +18,7 @@ dotenv.config();
 
 const corsOptions = {
   credentials: true,
-  origin: process.env.NODE_ENV === "production" ? "https://www.sayfoods.co/" : "http://localhost:5173",
+  origin: process.env.NODE_ENV === "production" ? "https://www.sayfoods.co" : "http://localhost:5173",
 };
 app.use(cors(corsOptions));
 
